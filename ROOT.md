@@ -53,9 +53,15 @@ Ubuntu is pretty simple to setup.  The one catch is you'll want a `Bridged Adapt
 
 At the end of this you will want to setup a static IP address.  I'll return to this in the section **Getting Unstuck** (towards the end).
 
-### Caveat
+### Caveats
 
-**Note**: Due to a `coreutils` issue with Ubuntu stable you're going to have go into the wild and fun area of *unstable*.  [This is touched on here](https://help.ubuntu.com/lts/serverguide/installing-upgrading.html), but the basic gist of it is this:  Install Ubuntu, and then run this:
+#### Do not use LTS
+
+You do not want to use LTS.  You won't be using it long term, so LTS isn't needed, and, due to a second issue, you'll want to go unstable anyway.  Going from LTS to unstable is possible, it's just annoying.
+
+#### Unstable
+
+Due to a `coreutils` issue with Ubuntu stable you're going to have go into the wild and fun area of *unstable*.  [This is touched on here](https://help.ubuntu.com/lts/serverguide/installing-upgrading.html), but the basic gist of it is this:  Install Ubuntu, and then run this:
 
 ```bash
 sudo do-release-upgrade -d
