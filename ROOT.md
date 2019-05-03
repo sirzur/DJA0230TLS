@@ -53,6 +53,19 @@ Ubuntu is pretty simple to setup.  The one catch is you'll want a `Bridged Adapt
 
 At the end of this you will want to setup a static IP address.  I'll return to this in the section **Getting Unstuck** (towards the end).
 
+### Caveat
+
+**Note**: Due to a `coreutils` issue with Ubuntu stable you're going to have go into the wild and fun area of *unstable*.  [This is touched on here](https://help.ubuntu.com/lts/serverguide/installing-upgrading.html), but the basic gist of it is this:  Install Ubuntu, and then run this:
+
+```bash
+sudo do-release-upgrade -d
+sudo apt dist-upgrade
+```
+
+You absolutely want to be doing is in a Virtual Machine for this reason.
+
+This will pull the latest updates to Ubuntu, and make the rest of this smooth sailing.
+
 ### ACS
 
 If you're using Genie, download it and build it.  I'm assuming you're using Ubuntu still, so:
