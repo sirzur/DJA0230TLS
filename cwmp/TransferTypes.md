@@ -16,7 +16,7 @@ Script names have been extracted by putting the router into verbose debugging mo
 
 ## Base List
 
-These are the base types prescribed by TR-181, though this modem/router supports outdated CWMP models.  The naming for types 4 and 5 has been taken from `TR-069`, as it aligns with what appears to be listed in the data.  The updated types replaces 4 with `4 Vendor Log File (Upload Only)`, and drops the 'Ringer File' entirely.  Vender specific (per below) is retained.
+These are the base types prescribed by TR-181, though this modem/router supports outdated CWMP models.  The naming for types 4 and 5 has been taken from `TR-069`, as it aligns with what appears to be listed in the data.  The updated types replaces 4 with `4 Vendor Log File (Upload Only)`, and drops the 'Ringer File' entirely.  Vendor specific (per below) is retained.
 
  * `1 Firmware Upgrade Image` (Download Only) [`upgrade.sh`]
  * `2 Web Content` (Download Only) [`§web.sh`]
