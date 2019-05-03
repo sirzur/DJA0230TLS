@@ -11,7 +11,7 @@ In short, do so at your own risk.  This is the procedure done to my own modem/ro
 
 Yes, we're talking about shell access.  Yes, this isn't specific to the DJA0230TLS, and probably works on a host of other routers made by Technicolor.  It probably works on most OpenWRT based routers, and probably even works on homebrew ones.  It relies on a few things:
 
-  1. The commonsense approach that you don't need or want to lock down CWMP (because you don't -- only your ISP should be feeding your DHCP to override your CWMP configuration endpoint);
+  1. The common sense approach that you don't need or want to lock down CWMP (because you don't -- only your ISP should be feeding your DHCP to override your CWMP configuration endpoint);
   2. CWMP being enabled.
 
 Since you probably have both those things, read on!
@@ -47,7 +47,7 @@ From this point on I'm assuming you will be on `192.168.30.1` **at the end of th
 
 ### Stuck?
 
-If you want to use the new and shiny GenieACS (you'll only be using it briefly, unless you fall in love with CWMP), you'll need the latest version of Ubuntu, or Arch Linux.  If you don't know what you're doing, use Ubuntu.  If you don't have a spare system, or have no iea what you're doing, or really do know what you're doing and have the same terrified look whenever someone says "VMWare" that I do, then use [VirtualBox](https://www.virtualbox.org/) for run your host.
+If you want to use the new and shiny GenieACS (you'll only be using it briefly, unless you fall in love with CWMP), you'll need the latest version of Ubuntu, or Arch Linux.  If you don't know what you're doing, use Ubuntu.  If you don't have a spare system, or have no idea what you're doing, or really do know what you're doing and have the same terrified look whenever someone says "VMWare" that I do, then use [VirtualBox](https://www.virtualbox.org/) for run your host.
 
 Ubuntu is pretty simple to setup.  The one catch is you'll want a `Bridged Adapter`.  That's in the Virtual Box GUI settings, and that's so your VM can talk to your router in a moment.
 
