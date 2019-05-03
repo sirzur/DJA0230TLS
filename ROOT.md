@@ -266,3 +266,28 @@ You can fiddle with this file more if you want, up to you.  The other changes yo
   3. Run through the push steps again, except this time push *this* configuration file.
 
 Once it reboots, dropbear is enabled on LAN (only), and you've still got plaintext configuration access.  Swap your cable from WAN to LAN to confirm.  If all is well you can put your router back, turn off the virtual machine, and remove it from your system now if you want.  Enjoy :)
+
+### Turn off CWMP
+
+You probably want to disable CWMP in the event your ISP endpoint tries to take it back (assuming you're even with Telstra).  There are a few ways to do it.  The first is to push the configuration file again, which isn't ideal (why bother?).  The other is to push uci commands:
+
+```bash
+uci show cwmpd.cwmpd_config.interface='lan'
+uci show cwmpd.cwmpd_config.interface6='lan6'
+uci commit
+```
+
+This means that the CWMP system will now only speak to your LAN interfaces.  This means that even if something goes very wrong, CWMP cannot speak to the outside world.  The good part about that is if you ever want to mess with CWMP again, you can.  If you want to take it a step further, you can set the acs_url (the address of the virtual machine or whatever else), and other things.
+
+Notably anything in your plain text configuration file should work just fine :)
+
+## Paranoid?
+
+Jump onto the shell as root and run this:
+
+```bash
+uci set system.config.export_unsigned='0'
+uci commit
+```
+
+Now use the [config.js script](./browser-scripts/config.js) to export a copy of the configuration such that you can import unsigned, unencrypted data, but that it's signed.  Keep a copy of that `config.bin`.  If you really screw it up all you need to do is push that configuration file to the router and it'll put you back at the state you're in now.
