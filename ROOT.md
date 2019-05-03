@@ -210,6 +210,8 @@ At this time *hopefully* the router has authenticated for the first time with Ge
 
 If it's not there, you're out of luck or something went awry.  Check your router's logs using its wireless (use your phone/tablet/whatever, or worst case move the ethernet cable over to the LAN port, get an IP from your desktop, and poke around).  Hopefully there's a clue.  Anyway, for those who did get a device...
 
+**If you are restoring you want to use the export you did last time (from the end of this document).  It will be plain text with funky characters at the end.  If you've edited it, it's useless to you now.**
+
   1. Push file;
   2. Drop down and select your file;
   3. If it didn't auto-populate the type is `3 Vendor Configuration File`.
@@ -272,8 +274,8 @@ Once it reboots, dropbear is enabled on LAN (only), and you've still got plainte
 You probably want to disable CWMP in the event your ISP endpoint tries to take it back (assuming you're even with Telstra).  There are a few ways to do it.  The first is to push the configuration file again, which isn't ideal (why bother?).  The other is to push uci commands:
 
 ```bash
-uci show cwmpd.cwmpd_config.interface='lan'
-uci show cwmpd.cwmpd_config.interface6='lan6'
+uci set cwmpd.cwmpd_config.interface='lan'
+uci set cwmpd.cwmpd_config.interface6='lan6'
 uci commit
 ```
 
@@ -291,3 +293,12 @@ uci commit
 ```
 
 Now use the [config.js script](./browser-scripts/config.js) to export a copy of the configuration such that you can import unsigned, unencrypted data, but that it's signed.  Keep a copy of that `config.bin`.  If you really screw it up all you need to do is push that configuration file to the router and it'll put you back at the state you're in now.
+
+**Back a copy of this file up for use later.  Do not edit its contents.**
+
+Optionally revert your settings using:
+
+```bash
+uci set system.config.export_unsigned='1'
+uci commit
+```
