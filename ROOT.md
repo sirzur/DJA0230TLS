@@ -142,6 +142,18 @@ to this (or whatever your IP is):
 "FS_HOSTNAME" : "192.168.30.1",
 ```
 
+and 
+
+```json
+"UI_JWT_SECRET": "",
+```
+
+to whatever you want:
+
+```json
+"UI_JWT_SECRET": "whatever you want this does not matter",
+```
+
 `CTRL` and `X` to exit (press `Y` when prompted to save).
 
 Finish it up with some finalisation:
