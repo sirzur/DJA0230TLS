@@ -37,11 +37,14 @@ The `<DEVICENAME>` section is URL encoded in the UI, and to get the appropriate 
   2. Some kind of DHCP server that can use vendor extensions (`isc-dhcp-server` is perfect if you're on Linux);
   3. A configuration file (got you covered);
   4. [A copy of the config.js script](./browser-scripts/config.js) to download the configuration file easily (save it to your desktop);
-  5. A way to move files to the Virtual Machine or remote host running Linux (if you're uncomfortable with command line things, try [WinSCP](https://winscp.net/eng/index.php), it's free, and awesome).
+  5. A way to move files to the Virtual Machine or remote host running Linux (if you're uncomfortable with command line things, try [WinSCP](https://winscp.net/eng/index.php), it's free, and awesome);
+  6. Either turn off mobile fallback (temporarily) in the web interface, or take the SIM card out of the mobile temporarily.  If it gets an IP address when you're fiddling and refuses to give it up, no CWMP for you, which means none of this works.
   
-This is your configuration file.  I called is `system.config`.  It is `the payload`.  Save this file to disk.  Call it whatever you like, we'll use it later.
+This is your configuration file.  I called is `system.config`.  It is `the payload`.  Save this file to disk.  Call it whatever you like, we'll use it later.  
 
-```
+A copy of this is also in this repository as [system.config](./support-files/system.config) if you'd rather download it to avoid potential line break issues.  I'd actually recommend downloading it (click this link, then right click 'Download' -> 'Save As', preferably inside your virtual machine, but having a backup on your desktop won't hurt in the event you forget later).
+
+```ini
 set system.config.export_plaintext='1'
 set system.config.export_unsigned='1'
 set system.config.import_plaintext='1'
@@ -341,7 +344,7 @@ You will lose internet at this point.  Make sure know your settings.  Make sure 
 I assume at this point you have your router disconnected with power disconnected and an ethernet cable ("LAN cable") nearby.  If you're on ADSL/VDSL or anything else, make sure you've disabled mobile and disconnected the PSTN leads.  Those can/will mess this up.
 
   1. Plug the router's WAN port (the red port on this router) into an ethernet cable;
-  2. Plug the other end of that ethernet cable into your computer's WAN port;
+  2. Plug the other end of that ethernet cable into your computer's LAN port (so it's now Router WAN <=> Computer LAN);
   3. Plug your router's power cable in, it will begin to boot.  During the boot process the DHCP server will detect it and tell it that Genie ACS (or whatever ACS you're using) is its new master;
   4. Open a browser in the virtual machine (or your desktop if you've got a common network subnet available to it) to browse the Genie UI (or whatever ACS).  For Genie it's on port 3000.  In the virtual machine it'd be `http://localhost:3000`.  Default username and password are admin/admin.
 
@@ -376,6 +379,14 @@ If all goes well the router will get the file.  GenieACS (due to fun bugs) will 
 
 If it worked, you now have plain text configuration files.
 
+If you do the kick trick things will be a lot less painful.
+
+### WHOA! Reboot cycle
+
+Uh oh.  I had this happen far too often during working this out, but it really shouldn't be happening here.  Start the diagnostics here by disconnecting from the Router's WAN and plugging into the LAN port.  Your PC will then pick up an IP address from the Router as it boots.  If it's Genie doing something daft (it can be), then the Router won't auto-restart on failure.
+
+If it's still doing it, time for a factory reset using TFTP if you can't get the interface going :(
+
 ## Using the plain text configuration files
 
   1. Disconnect from your router's WAN and plug into the LAN;
@@ -389,7 +400,7 @@ If all of that went well you got a configuration file that's human readable.
 
 `CTRL+F` (or equivalent) for `[dropbear]`.
 
-Edit it to:
+Edit it to something like this (depending on your router version, if you're not using the exact same model as `DJA0230TLS`, it may be slightly different):
 
 ```ini
 [dropbear]
@@ -431,6 +442,8 @@ uci set cwmpd.cwmpd_config.interface6='lan6'
 uci commit
 ```
 
+ > **A word of warning**: Some ISPs can/will (and rather rightfully so) drop connections that block CWMP.  If you have an issue, talk to your ISP.  You can re-enable CWMP by turning it back on in the configuration file, and reverting this to 'wan' (interface) and 'wan6' (interface6) respectively.
+
 This means that the CWMP system will now only speak to your LAN interfaces.  This means that even if something goes very wrong, CWMP cannot speak to the outside world.  The good part about that is if you ever want to mess with CWMP again, you can.  If you want to take it a step further, you can set the acs_url (the address of the virtual machine or whatever else), and other things.
 
 Notably anything in your plain text configuration file should work just fine :)
@@ -446,7 +459,7 @@ uci commit
 
 Now use the [config.js script](./browser-scripts/config.js) to export a copy of the configuration such that you can import unsigned, unencrypted data, but that it's signed.  Keep a copy of that `config.bin`.  If you really screw it up all you need to do is push that configuration file to the router and it'll put you back at the state you're in now.
 
-**Back a copy of this file up for use later.  Do not edit its contents.**
+**Back a copy of this file up for use later.  Do not edit its contents.  The weird characters at the end are a signature that validate it so you can import it into a clean install of the modem so you don't have to do this all again!**
 
 Optionally revert your settings using:
 
