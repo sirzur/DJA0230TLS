@@ -52,7 +52,7 @@ From this point on I'm assuming you will be on `192.168.30.1` **at the end of th
 
 If you want to use the new and shiny GenieACS (you'll only be using it briefly, unless you fall in love with CWMP), you'll need the latest version of Ubuntu, or Arch Linux.  If you don't know what you're doing, use Ubuntu.  If you don't have a spare system, or have no idea what you're doing, or really do know what you're doing and have the same terrified look whenever someone says "VMWare" that I do, then use [VirtualBox](https://www.virtualbox.org/) for run your host.
 
-Ubuntu is pretty simple to setup.  The one catch is you'll want a `Bridged Adapter`.  That's in the Virtual Box GUI settings, and that's so your VM can talk to your router in a moment.
+Ubuntu is pretty simple to setup.  The one catch is you'll want a `Bridged Adapter`.  That's in the Virtual Box GUI settings, and that's so your VM can talk to your router in a moment.  **Use the Desktop version of Ubuntu if you are going down this Road.  DO NOT USE LTS.**
 
 At the end of this you will want to setup a static IP address.  I'll return to this in the section **Getting Unstuck** (towards the end).
 
