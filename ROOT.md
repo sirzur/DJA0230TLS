@@ -84,7 +84,7 @@ This will pull the latest updates to Ubuntu, and make the rest of this smooth sa
 
 ### ACS
 
-If you're using Genie, download it and build it.
+If you're using Genie, download it and build it.  **Bear in mind when you load it for the first time it will take a while to start up.  This is normal.**
 
 #### For the older version
 
@@ -117,15 +117,14 @@ cd ~
 git clone https://github.com/genieacs/genieacs.git
 cd genieacs
 npm install
+npm run-script configure
+
+# Edit your configuration here to make sure it didn't screw up.
+# Things should be fine.  Make sure the JWT SECRET is populated
+# and the IP address is set properly.  Everything else should
+# be okay as defaults.
+nano -w config/config.json
 ```
-
-Finally edit the configuration file.  I honestly can't remember if genie ships with one, or if there's a sample, so we'll just copy the config to be safe:
-
-```bash
-cp config/config-sample.json config/config.json
-```
-
-You'll want to edit the file server here:
 
 ```bash
 nano -w config/config.json
@@ -144,6 +143,19 @@ to this (or whatever your IP is):
 ```
 
 `CTRL` and `X` to exit (press `Y` when prompted to save).
+
+Finish it up with some finalisation:
+
+```bash
+# Run the build
+npm run-script build
+
+# Ensure the UI configuration is populated.
+# If this fails, don't stress, we'll run it again if something went wrong.
+./tools/configure-ui
+```
+
+If you're missing `tools/configure-ui`, grab the tar.bz2 from this repository, extract it into the genie directory (it should create the folder tools, not be a folder inside it).  It's just a script.  Feel free to take a look around it, it's nothing special, and it's from GenieACS.
 
 ### DHCP
 
@@ -259,28 +271,13 @@ CTRL + C
 Time to fix the broken/incomplete build.
 
 ```bash
-# Back to genie
-cd genieacs
-
-# Future proof this
-npm run-script configure
-
-# Edit your configuration here to make sure it didn't screw up.
-# Things should be fine.  Make sure the JWT SECRET is populated
-# and the IP address is set properly.  Everything else should
-# be okay as defaults.
-nano -w config/config.json
-
-# Run the build
-npm run-script build
-```
-
-If you got an error here about build not being supported:
-
-```bash
 # If you get an error here, we'll be paranoid:
 npm install esm libxmljs
 npm run-script build
+
+# Ensure the UI configuration is populated.
+# If this fails, don't stress, we'll run it again if something went wrong.
+./tools/configure-ui
 ```
 
 Finally, copy into place:
@@ -304,6 +301,16 @@ screen -S ui -dm ./bin/genieacs-ui
 Once more, test the UI: `http://localhost:3000`
 
 With any luck you can now sign in.
+
+If you still can't sign in (and at this point, trust me, I'm more annoyed with Genie than you are), try this:
+
+```bash
+npm audit fix
+npm update
+npm install
+```
+
+Give it a minute, then try the login again.
 
 ## The process itself
 
