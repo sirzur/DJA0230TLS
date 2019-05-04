@@ -10,6 +10,8 @@ In short, do so at your own risk.  This is the procedure done to my own modem/ro
 
 This is a road currently lightly walked.  It's pretty rough, and not well documented because it's open source software thrown together into a guide and walked down by people who, for the most part, knew what they were doing (and just automatically debugged their way out of trouble without reporting it back to me).  So there are still sharp edges being reported back.  I'm trying to narrow these down while tooling something that makes this less unpleasant.
 
+**The type/version of GenieACS you use is irrelevant here.  The GUI is a convenience thing, you can push files without it if you are comfortable with cURL.  Look at the Wiki pages on GenieACS's page for more information.**  (If you use another CWMP methd (i.e. ACS) just make sure you can send files and set params.)
+
 ## So you want to get root access?
 
 Yes, we're talking about shell access.  Yes, this isn't specific to the DJA0230TLS, and probably works on a host of other routers made by Technicolor.  It probably works on most OpenWRT based routers, and probably even works on homebrew ones.  It relies on a few things:
