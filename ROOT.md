@@ -310,7 +310,17 @@ npm update
 npm install
 ```
 
-Give it a minute, then try the login again.
+Give it a minute to complete and then try the login again.
+
+If that's still failing, something really hinky has happened.  At this point we're going to have to go nuclear on the database.  If you're using the default database name (`genieacs`), run the following (otherwise change the database name, it's the second argument here):
+
+```bash
+mongo genieacs --eval "db.dropDatabase()"
+npm install
+./tools/configure-ui
+```
+
+Now try again.  At this point it should be working.
 
 ## The process itself
 
