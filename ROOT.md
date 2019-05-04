@@ -6,6 +6,9 @@ This isn't a short document, so buckle up, and it comes with the usual caveats, 
 
 In short, do so at your own risk.  This is the procedure done to my own modem/router.  The process itself *is* safe, it's just a bit fiddly.
 
+## Before you begin
+
+This is a road currently lightly walked.  It's pretty rough, and not well documented because it's open source software thrown together into a guide and walked down by people who, for the most part, knew what they were doing (and just automatically debugged their way out of trouble without reporting it back to me).  So there are still sharp edges being reported back.  I'm trying to narrow these down while tooling something that makes this less unpleasant.
 
 ## So you want to get root access?
 
@@ -85,7 +88,7 @@ Get [Node from NodeSource](https://github.com/nodesource/distributions#debinstal
 
 ```bash
 # Node
-curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
+curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
 sudo apt-get install -y nodejs
 ```
 
@@ -194,12 +197,88 @@ Start everything up and get ready to roll.  (Yes, the wild insanity of me mixing
 ```bash
 sudo /etc/init.d/isc-dhcp-server start
 sudo service mongod start
-cd ~
+cd ~/genieacs
 screen -S cwmp -dm ./bin/genieacs-cwmp
 screen -S fs -dm ./bin/genieacs-fs
 screen -S nbi -dm ./bin/genieacs-nbi
 screen -S ui -dm ./bin/genieacs-ui
 ```
+
+At this point point your browser (in the VM) to `http://localhost:3000`.  If it's a white screen, something went wrong.  This happens, so we need to end a few things.
+
+Username and password are `admin` and `admin` (defaults).  Remember those even if didn't work.  If it did, great, skip the White Screen section below.
+
+#### Genie's White Screen
+
+Time to kill our session I'm afraid.
+```bash
+# Resume CWMP
+screen -dr cwmp
+CTRL + C
+# Wait a moment
+
+# Resume fs
+screen -dr fs
+CTRL + C
+# Wait a moment
+
+# Resume nbi
+screen -dr nbi
+CTRL + C
+# Wait a moment
+
+# Resume ui
+screen -dr ui
+CTRL + C
+# Wait a moment
+```
+
+Time to fix the broken/incomplete build.
+
+```bash
+# Back to genie
+cd genieacs
+
+# Future proof this
+npm run-script configure
+
+# Edit your configuration here to make sure it didn't screw up.
+# Things should be fine.  Make sure the JWT SECRET is populated
+# and the IP address is set properly.  Everything else should
+# be okay as defaults.
+nano -w config/config.json
+
+# Run the build
+npm run-script build
+```
+
+If you got an error here about build not being supported:
+
+```bash
+# If you get an error here:
+npm install esm
+npm run-script build
+```
+
+Finally, copy into place:
+
+```bash
+# Fix the failed copy for whatever's going on here.
+cp -R dist/public/* public/
+```
+
+Now we try again:
+
+```bash
+screen -S cwmp -dm ./bin/genieacs-cwmp
+screen -S fs -dm ./bin/genieacs-fs
+screen -S nbi -dm ./bin/genieacs-nbi
+screen -S ui -dm ./bin/genieacs-ui
+```
+
+Once more, test the UI: `http://localhost:3000`
+
+With any luck you can now sign in.
 
 ## The process itself
 
