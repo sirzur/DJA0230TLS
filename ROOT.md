@@ -50,23 +50,28 @@ From this point on I'm assuming you will be on `192.168.30.1` **at the end of th
 
 ### Stuck?
 
+You have two options for GenieACS.  The new and shiny, or the old.  I'm utterly useless with Ruby, so I used the newer one (which is pure node and npm).  People have pulled this off with both.
+
+#### The Older Version
+
+If you want to use the older, you can.  For the older version, you just follow [The Quick Start Guide](https://github.com/genieacs/genieacs#quick-start).  (You'll also need to compile the [old GUI](https://github.com/genieacs/genieacs-gui); if you get stuck on it, [there are some older guides, like this one](https://github.com/genieacs/genieacs/wiki/Installation-Guide-Ubuntu-16.04), but they are somewhat dated.)
+
+#### The New and Shiny Version
+
 If you want to use the new and shiny GenieACS (you'll only be using it briefly, unless you fall in love with CWMP), you'll need the latest version of Ubuntu, or Arch Linux.  If you don't know what you're doing, use Ubuntu.  If you don't have a spare system, or have no idea what you're doing, or really do know what you're doing and have the same terrified look whenever someone says "VMWare" that I do, then use [VirtualBox](https://www.virtualbox.org/) for run your host.
 
 Ubuntu is pretty simple to setup.  The one catch is you'll want a `Bridged Adapter`.  That's in the Virtual Box GUI settings, and that's so your VM can talk to your router in a moment.  **Use the Desktop version of Ubuntu if you are going down this Road.  DO NOT USE LTS.**
 
 At the end of this you will want to setup a static IP address.  I'll return to this in the section **Getting Unstuck** (towards the end).
 
-### Caveats
+##### Caveats
 
-#### Do not use LTS
+**This only applies to the New and Shiny GenieACS.  It should make no difference to anything else.**
 
-You do not want to use LTS.  You won't be using it long term, so LTS isn't needed, and, due to a second issue, you'll want to go unstable anyway.  Going from LTS to unstable is possible, it's just annoying.
+  1. Do not use LTS:  You do not want to use LTS.  You won't be using it long term, so LTS isn't needed, and, due to a second issue, you'll want to go unstable anyway.  Going from LTS to unstable is possible, it's just annoying.
+  2. Due to a `coreutils` issue with Ubuntu stable you're going to have go into the wild and fun area of *unstable*.  [This is touched on here](https://help.ubuntu.com/lts/serverguide/installing-upgrading.html), but the basic gist of it is this:  Install Ubuntu, and then run this:
 
-#### Unstable
-
-Due to a `coreutils` issue with Ubuntu stable you're going to have go into the wild and fun area of *unstable*.  [This is touched on here](https://help.ubuntu.com/lts/serverguide/installing-upgrading.html), but the basic gist of it is this:  Install Ubuntu, and then run this:
-
-```bash
+```
 sudo do-release-upgrade -d
 sudo apt dist-upgrade
 ```
@@ -77,7 +82,17 @@ This will pull the latest updates to Ubuntu, and make the rest of this smooth sa
 
 ### ACS
 
-If you're using Genie, download it and build it.  I'm assuming you're using Ubuntu still, so:
+If you're using Genie, download it and build it.
+
+#### For the older version
+
+Use the quick start linked above (skip to DHCP below).
+
+#### For the new and shiny
+
+This is longer.
+
+I'm assuming you're using Ubuntu still, so:
 
 ```bash
 # Essentials
@@ -194,9 +209,15 @@ At this point you'll lose your network connection (unable to download things and
 
 Start everything up and get ready to roll.  (Yes, the wild insanity of me mixing init.d with service isn't lost on me either, but I wasn't going to write this up using OpenBSD and obscure hand-rolled scripts was I?)
 
+
 ```bash
 sudo /etc/init.d/isc-dhcp-server start
 sudo service mongod start
+```
+
+For the genieacs install, if you used the old version, starting up is similar, but the ui is split.
+
+```bash
 cd ~/genieacs
 screen -S cwmp -dm ./bin/genieacs-cwmp
 screen -S fs -dm ./bin/genieacs-fs
@@ -255,8 +276,8 @@ npm run-script build
 If you got an error here about build not being supported:
 
 ```bash
-# If you get an error here:
-npm install esm
+# If you get an error here, we'll be paranoid:
+npm install esm libxmljs
 npm run-script build
 ```
 
