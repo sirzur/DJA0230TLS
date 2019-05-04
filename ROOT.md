@@ -290,6 +290,8 @@ Finally, copy into place:
 cp -R dist/public/* public/
 ```
 
+If it's still failing, SFTP a copy of `genie-public.tar.bz2` to your VM and extract the loose files into `public/` (it's a copy of my `public/` folder).  It should resolve to `public/app.js` and so on (it should be end up being `public/public/app.js`, if it does move the from files inside `public/public` so they are just inside `public/`).
+
 Now we try again:
 
 ```bash
