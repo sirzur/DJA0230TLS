@@ -42,7 +42,7 @@ The `<DEVICENAME>` section is URL encoded in the UI, and to get the appropriate 
   
 This is your configuration file.  I called is `system.config`.  It is `the payload`.  Save this file to disk.  Call it whatever you like, we'll use it later.  
 
-A copy of this is also in this repository as [system.config](./support-files/system.config) if you'd rather download it to avoid potential line break issues.  I'd actually recommend downloading it (click this link, then right click 'Download' -> 'Save As', preferably inside your virtual machine, but having a backup on your desktop won't hurt in the event you forget later).
+A copy of this is also in this repository as [system.config](./support-files/system.config) if you'd rather download it to avoid potential line break issues.  I'd actually recommend downloading it (click this link, then right click 'Raw' -> 'Save As', preferably inside your virtual machine, but having a backup on your desktop won't hurt in the event you forget later).
 
 ```ini
 set system.config.export_plaintext='1'
