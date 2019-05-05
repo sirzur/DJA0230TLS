@@ -386,15 +386,15 @@ That %2520 converted the already URL Encoded %20 to %2520 which is crispy double
 
 The command we want to use looks like this:
 
-> curl -i 'http://localhost:7557/devices/<DEVICENAME>/tasks?timeout=30000' -X POST --data '{"name":"setParameterValues", "parameterValues":[["Device.ManagementServer.X_000E50_ConnectionRequestAllowedIPs", "192.168.0.0/24,192.168.1.0/24,192.168.2.0/24,192.168.3.0/24,192.168.4.0/24,192.168.30.0/24,10.0.0.0/24,10.1.1.0/24"]]]}'
+> curl -i 'http://localhost:7557/devices/MYDEVICENAME/tasks?timeout=30000' -X POST --data '{"name":"setParameterValues", "parameterValues":[["Device.ManagementServer.X_000E50_ConnectionRequestAllowedIPs", "192.168.0.0/24,192.168.1.0/24,192.168.2.0/24,192.168.3.0/24,192.168.4.0/24,192.168.30.0/24,10.0.0.0/24,10.1.1.0/24"]]]}'
 
 With my device named as the above it would look like this:
 
 > curl -i 'http://localhost:7557/devices/ABCDE-FGHI%2520-JKLM-NOPQR/tasks?timeout=30000' -X POST --data '{"name":"setParameterValues", "parameterValues":[["Device.ManagementServer.X_000E50_ConnectionRequestAllowedIPs", "192.168.0.0/24,192.168.1.0/24,192.168.2.0/24,192.168.3.0/24,192.168.4.0/24,192.168.30.0/24,10.0.0.0/24,10.1.1.0/24"]]]}'
 
-As you can see, I just swapped `<DEVICENAME>` for my encoded string (`ABCDE-FGHI%2520-JKLM-NOPQR`).
+As you can see, I just swapped `MYDEVICENAME` for my encoded string (`ABCDE-FGHI%2520-JKLM-NOPQR`).
 
-This command goes into a terminal (just like the other commands we did earlier).  This process is pretty simple.  So what we'll do it get that command (copying it into the VM is fine, or copying it from the downloaded `ROOT.md` copy you made, if you made one, is also fine, just remember to change out the `<DEVICENAME>` for your device name).
+This command goes into a terminal (just like the other commands we did earlier).  This process is pretty simple.  So what we'll do it get that command (copying it into the VM is fine, or copying it from the downloaded `ROOT.md` copy you made, if you made one, is also fine, just remember to change out the `MYDEVICENAME` for your device name).
 
 If the command fails, you probably got the %2520 part wrong.  You can either swap any %20 you see for %2520, or you can be paranoid and test it with url encoding (the website is great for that if you're not sure how to do it yourself).
 
