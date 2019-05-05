@@ -410,7 +410,7 @@ With any luck the command will run.  Give it 5-10 seconds.
 
 Now click "Summon" on the webpage.  If that passes, it worked.  If it didn't try it a couple more times.  (Just disconnect, wait 5 seconds, run the command.  Plug it in.  Wait maybe 30 seconds until the lights come on.)
 
-If Summon isn't working, kick is failing, and something is going on that I can't diagnose with generic troubleshooting.  (Even the automated attempts to set this up aren't going to be able to debug that one.)
+> If Summon isn't working, kick is failing, and something is going on that I can't diagnose with generic troubleshooting.  (Even the automated attempts to set this up aren't going to be able to debug that one.)
 
 ### Continuing on
 
