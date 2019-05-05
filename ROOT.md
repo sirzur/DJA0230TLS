@@ -23,13 +23,7 @@ Since you probably have both those things, read on!
 
 ## Setup
 
-**Before we begin**: There is a note on the timing mechanism that you can use to bypass the issue.  In that you can actually use curl on the virtual machine to bypass the need to fiddle the WAN reconnects to enable a "kick" to reconnect it.  The issue is that the command is this:
-
-```bash
-curl -i 'http://localhost:7557/devices/<DEVICENAME>/tasks?timeout=30000' -X POST   --data '{"name":"setParameterValues", "parameterValues":[["Device.ManagementServer.X_000E50_ConnectionRequestAllowedIPs", "192.168.0.0/24,192.168.1.0/24,192.168.2.0/24,192.168.3.0/24,192.168.4.0/24,192.168.30.0/24,10.0.0.0/24,10.1.1.0/24"]]]}'
-```
-
-The `<DEVICENAME>` section is URL encoded in the UI, and to get the appropriate form you have to URLEncode *again*.  (You can use [a site like this one](https://www.urlencoder.io/) to just copy and paste the name in.)  It means you'll end up with `%20` turning into `%2520`, which is *super crispy*.  If you're comfortable copying the ID name from the device page, and putting it into that string, executing that and then doing WAN trick, then the rest of this becomes more reliable (as CWMP kick functions as expected).  If you're not, the method below works, it just may take a few attempts to get right.  (And more's the infuriating part of CWMP without a functioning kick.)
+**Before we begin**: There is a note on the timing mechanism that you can use to bypass the issue.  This is now inlined into the process.  I refer to this as the "kick fix".  It used to be optional, but due to the number of errors by people not doing it, it's not part of the flow.
 
 ### What you need
 
@@ -38,7 +32,8 @@ The `<DEVICENAME>` section is URL encoded in the UI, and to get the appropriate 
   3. A configuration file (got you covered);
   4. [A copy of the config.js script](./browser-scripts/config.js) to download the configuration file easily (save it to your desktop);
   5. A way to move files to the Virtual Machine or remote host running Linux (if you're uncomfortable with command line things, try [WinSCP](https://winscp.net/eng/index.php), it's free, and awesome);
-  6. Either turn off mobile fallback (temporarily) in the web interface, or take the SIM card out of the mobile temporarily.  If it gets an IP address when you're fiddling and refuses to give it up, no CWMP for you, which means none of this works.
+  6. Either turn off mobile fallback (temporarily) in the web interface, or take the SIM card out of the mobile temporarily.  If it gets an IP address when you're fiddling and refuses to give it up, no CWMP for you, which means none of this works;
+  7. (Optionally) copying this file into the VM using the terminal: (`wget https://raw.githubusercontent.com/awstanley/DJA0230TLS/master/ROOT.md`) or even cloning the whole repository as a matter of paranoia: (`git clone https://github.com/awstanley/DJA0230TLS/`).  This gives you all of the files I'm talking about here in relation to this repository without having to worry about downloading them again later.  (You still need WinSCP to move your own configuration file in and out.)
   
 This is your configuration file.  I called is `system.config`.  It is `the payload`.  Save this file to disk.  Call it whatever you like, we'll use it later.  
 
@@ -357,6 +352,8 @@ While it loads in visit the GenieACS UI (or whatever you're using) to prepare th
   5. File -> Browse (select our config file from before (up the top of this document));
   6. `Save`.
 
+> **Note**: This file should be the one containing **four lines of code**, each starting with the word `set`.  If you have a JavaScript file, it's the wrong one.
+
 At this time *hopefully* the router has authenticated for the first time with Genie.
 
   1. Click "Devices";
@@ -365,15 +362,64 @@ At this time *hopefully* the router has authenticated for the first time with Ge
 
 If it's not there, you're out of luck or something went awry.  Check your router's logs using its wireless (use your phone/tablet/whatever, or worst case move the ethernet cable over to the LAN port, get an IP from your desktop, and poke around).  Hopefully there's a clue.  Anyway, for those who did get a device...
 
+### Kick Fix
+
+**This used to be optional.  This makes this bit easier, so it's not mandatory, but if you're struggling you absolutely need to do this.  If you're worried that this is a rough enough path already, you *absolutely* need to do this.  It makes what follows easier because doing this here to fix it makes debugging the faults below trivial.**
+
+You should only have the one (unless you're setting up multiple, in which case it's the latest one to be online, hopefully, or you're keeping track!).  Click on your target device.
+
+On your device screen you'll see a name like this:
+
+```
+ABCDE-FGHI%20-JKLM-NOPQR
+```
+
+Copy that name with no leading or trailing spaces.  We're going to need to URL Encode it.  If you don't know what that means, visit https://www.urlencoder.io/ and paste the name into it.
+
+Out the other side it'll come out like this:
+
+```
+ABCDE-FGHI%2520-JKLM-NOPQR
+```
+
+That %2520 converted the already URL Encoded %20 to %2520 which is crispy double encoding.  **Super crispy.**  (The nerd in my screams.  The nerd, that is me, wants to scream.)
+
+The command we want to use looks like this:
+
+```bash
+curl -i 'http://localhost:7557/devices/<DEVICENAME>/tasks?timeout=30000' -X POST --data '{"name":"setParameterValues", "parameterValues":[["Device.ManagementServer.X_000E50_ConnectionRequestAllowedIPs", "192.168.0.0/24,192.168.1.0/24,192.168.2.0/24,192.168.3.0/24,192.168.4.0/24,192.168.30.0/24,10.0.0.0/24,10.1.1.0/24"]]]}'
+```
+
+With my device named as the above it would look like this:
+
+```bash
+curl -i 'http://localhost:7557/devices/ABCDE-FGHI%2520-JKLM-NOPQR/tasks?timeout=30000' -X POST --data '{"name":"setParameterValues", "parameterValues":[["Device.ManagementServer.X_000E50_ConnectionRequestAllowedIPs", "192.168.0.0/24,192.168.1.0/24,192.168.2.0/24,192.168.3.0/24,192.168.4.0/24,192.168.30.0/24,10.0.0.0/24,10.1.1.0/24"]]]}'
+```
+
+As you can see, I just swapped `<DEVICENAME>` for my encoded string (`ABCDE-FGHI%2520-JKLM-NOPQR`).
+
+This command goes into a terminal (just like the other commands we did earlier).  This process is pretty simple.  So what we'll do it get that command (copying it into the VM is fine, or copying it from the downloaded `ROOT.md` copy you made, if you made one, is also fine, just remember to change out the `<DEVICENAME>` for your device name).
+
+If the command fails, you probably got the %2520 part wrong.  You can either swap any %20 you see for %2520, or you can be paranoid and test it with url encoding (the website is great for that if you're not sure how to do it yourself).
+
+ 1. Disconnect the cable from your modem/router's WAN;
+ 2. Wait a few seconds.
+ 3. Plug it back into the modem/router's WAN.
+
+With any luck the command will run.  Give it 5-10 seconds.
+
+Now click "Summon" on the webpage.  If that passes, it worked.  If it didn't try it a couple more times.  (Just disconnect, wait 5 seconds, run the command.  Plug it in.  Wait maybe 30 seconds until the lights come on.)
+
+If Summon isn't working, kick is failing, and something is going on that I can't diagnose with generic troubleshooting.  (Even the automated attempts to set this up aren't going to be able to debug that one.)
+
+### Continuing on
+
 **If you are restoring you want to use the export you did last time (from the end of this document).  It will be plain text with funky characters at the end.  If you've edited it, it's useless to you now.**
 
-  1. Push file;
+  1. Push the config file (`system.config`);
   2. Drop down and select your file;
   3. If it didn't auto-populate the type is `3 Vendor Configuration File`.
-  4. **DO NOT PRESS PUSH YET**;
-  5. Disconnect the WAN cable from your router;
-  6. Plug it back in;
-  7. Press push moments after you do so (the router will auto-check back in moments after you do it).
+  4. If you did the kick fix, press the button; if you didn't, disconnect the WAN cable, plug it back it, and then push the button (so the router will check in just after).
 
 If all goes well the router will get the file.  GenieACS (due to fun bugs) will report an initial failure, don't panic.  If it does and it works you'll see the routers lights turn off and it will go into a reboot pattern.
 
@@ -385,7 +431,13 @@ If you do the kick trick things will be a lot less painful.
 
 Uh oh.  I had this happen far too often during working this out, but it really shouldn't be happening here.  Start the diagnostics here by disconnecting from the Router's WAN and plugging into the LAN port.  Your PC will then pick up an IP address from the Router as it boots.  If it's Genie doing something daft (it can be), then the Router won't auto-restart on failure.
 
-If it's still doing it, time for a factory reset using TFTP if you can't get the interface going :(
+*Typically this means you sent the wrong file or there's a linebreak in it that's not playing ball.  This has happened to a few people and it's usually one of those.*  If you clear the "Faults" tab in Genie and/or reboot the virtual machine (and then restart Genie using the start-up sequence in *Spinning Up*), you should be good to try pushing again.
+
+If it's still doing it after that troubleshooting:
+
+  1. Disconnect the WAN cable;
+  2. Plug into LAN.  If that stopped it, try try again;
+  3. If it didn't stop it, TFTP reset time :(
 
 ## Using the plain text configuration files
 
@@ -428,7 +480,7 @@ You can fiddle with this file more if you want, up to you.  The other changes yo
 
   1. In the virtual machine upload the config file you just made into the files list (as necessary);
   2. Disconnect from your router's LAN and plug into the WAN once more;
-  3. Run through the push steps again, except this time push *this* configuration file.
+  3. Run through the push steps again, except this time push *this* configuration file (the `config.bin` you just uploaded, whatever you named it).
 
 Once it reboots, dropbear is enabled on LAN (only), and you've still got plaintext configuration access.  Swap your cable from WAN to LAN to confirm.  If all is well you can put your router back, turn off the virtual machine, and remove it from your system now if you want.  Enjoy :)
 
