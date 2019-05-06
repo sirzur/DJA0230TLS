@@ -1,5 +1,7 @@
 # Getting root
 
+*People are working on ways to make this less of a problem.*
+
 This isn't a short document, so buckle up, and it comes with the usual caveats, borrowed from the ISC Licence.
 
 > THE DOCUMENTATION IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS DOCUMENTATION INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS DOCUMENTATION.
@@ -8,9 +10,11 @@ In short, do so at your own risk.  This is the procedure done to my own modem/ro
 
 ## Before you begin
 
-This is a road currently lightly walked.  It's pretty rough, and not well documented because it's open source software thrown together into a guide and walked down by people who, for the most part, knew what they were doing (and just automatically debugged their way out of trouble without reporting it back to me).  So there are still sharp edges being reported back.  I'm trying to narrow these down while tooling something that makes this less unpleasant.
+  1. This is a road currently lightly walked.  It's pretty rough, and not well documented because it's open source software thrown together into a guide and walked down by people who, for the most part, knew what they were doing (and just automatically debugged their way out of trouble without reporting it back to me).  So there are still sharp edges being reported back.  I'm trying to narrow these down while tooling something that makes this less unpleasant.
 
-**The type/version of GenieACS you use is irrelevant here.  The GUI is a convenience thing, you can push files without it if you are comfortable with cURL.  Look at the Wiki pages on GenieACS's page for more information.**  (If you use another CWMP methd (i.e. ACS) just make sure you can send files and set params.)
+  2. **The type/version of GenieACS you use is irrelevant here.  The GUI is a convenience thing, you can push files without it if you are comfortable with cURL.  Look at the Wiki pages on GenieACS's page for more information.**  (If you use another CWMP methd (i.e. ACS) just make sure you can send files and set params.)
+
+  3. Windows users **you will need an editor that does not mess with linebreaks**.  If you do not know what this means then transfer your files to the Virtual Machine before editing them.  (The plaintext `config.bin` will need to be edited in the text editor in Ubuntu, Windows will mess it up; download the support files straight from this repository, Windows will mess them up.)  This will result in failed configuration uploads and **days** of headaches if you do not either use the Virtual Machine's editor or use a good editor.  (If in doubt, use the Virtual Machine's editors.)
 
 ## So you want to get root access?
 
