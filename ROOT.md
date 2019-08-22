@@ -8,7 +8,7 @@ The overall steps to root the DJA0230 device are listed below, and details for e
 
 #### Acknowledgements
 
-Whirlpool user Swixel who provided assistance and valueble insights
+Whirlpool user Swixel who provided assistance and valuable insights
 
  
 
