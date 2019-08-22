@@ -48,7 +48,7 @@ Whirlpool user Swixel who provided assistance and valueble insights
 
 16. If summon is unsuccessful, repeat the ‘kick fix’ again.  This may have to be repeated again.
 
-17. Push the system.config file loaded in step 12 to the device.  If successful, the DJA0230 device will reboot and you should have root access at port 22 after the device finishes booting up
+17. Push the system.config file loaded in step 13 to the device.  If successful, the DJA0230 device will reboot and you should have root access at port 22 after the device finishes booting up
 
 18. If using the same Ubuntu PC, reverse the static IP address, unplug Ethernet cable from WAN port and plug into one of the four LAN ports.  Confirm root access
 
@@ -62,23 +62,23 @@ It is also possible for Ubuntu 18.04.2 LTS to be installed on VM, and the proces
 
 2.  Open up a terminal and install the pre-requisite packages
 
- 
 
-*# Pre-requisite packages
 
-*sudo apt-get install redis-server build-essential screen curl git
+*# Pre-requisite packages*
 
- 
+*sudo apt-get install redis-server build-essential screen curl git*
+
+
 
 3.  From terminal install nodejs(Ref 1).  The version confirmed working is 10 and the command reflects the version
 
  
 
-*# Node
+*# Node*
 
-*curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
+*curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -*
 
-*sudo apt-get install -y nodejs
+*sudo apt-get install -y nodejs*
 
  
 
@@ -86,15 +86,15 @@ It is also possible for Ubuntu 18.04.2 LTS to be installed on VM, and the proces
 
  
 
-*# Mongodb
+*# Mongodb*
 
-*wget -qO - https://www.mongodb.org/static/pgp/server-4.0.asc | sudo apt-key add –
+*wget -qO - https://www.mongodb.org/static/pgp/server-4.0.asc | sudo apt-key add –*
 
-*echo "deb [ arch=amd64 ] https://repo.mongodb.org/apt/ubuntu/bionic/mongodb-org/4.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.0.list
+*echo "deb [ arch=amd64 ] https://repo.mongodb.org/apt/ubuntu/bionic/mongodb-org/4.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.0.list*
 
-*sudo apt-get update
+*sudo apt-get update*
 
-*sudo apt-get install -y mongodb-org
+*sudo apt-get install -y mongodb-org*
 
  
 
@@ -102,17 +102,17 @@ It is also possible for Ubuntu 18.04.2 LTS to be installed on VM, and the proces
 
  
 
-*# Genie
+*# Genie*
 
-*cd ~
+*cd ~*
 
-*git clone https://github.com/genieacs/genieacs.git
+*git clone https://github.com/genieacs/genieacs.git*
 
-*cd genieacs
+*cd genieacs*
 
-*npm install
+*npm install*
 
-*npm run build
+*npm run build*
 
  
 
@@ -124,9 +124,9 @@ If the latest commit of GenieACS does not work, the commit of August 4 2019 (sup
 
  
 
-*# isc-dhcp-server
+*# isc-dhcp-server*
 
-*sudo apt-get install isc-dhcp-server
+*sudo apt-get install isc-dhcp-server*
 
  
 
@@ -134,29 +134,29 @@ Edit the configuration. The configuration assumes you're doing a direct connecti
 
 The first line clears the dhcpd.conf file, while the second command opens the dhcp.conf file for edits
 
-*sudo sh -c 'echo > /etc/dhcp/dhcpd.conf’
+*sudo sh -c 'echo > /etc/dhcp/dhcpd.conf’*
 
-*sudo nano -w /etc/dhcp/dhcpd.conf
+*sudo nano -w /etc/dhcp/dhcpd.conf*
 
 In the editor you want to input this:
 
-*option space ACS;
-*option ACS.acs_URL code 1 = text;
-*option ACS.acs_PROVCODE code 2 = text;
+*option space ACS;*
+*option ACS.acs_URL code 1 = text;*
+*option ACS.acs_PROVCODE code 2 = text;*
 
-*default-lease-time 600;
-*max-lease-time 7200;
-*option broadcast-address 192.168.3.255;
-*option routers 192.168.3.254;
-*option domain-name-servers 192.168.3.1;
-*option subnet-mask 255.255.255.0;
+*default-lease-time 600;*
+*max-lease-time 7200;*
+*option broadcast-address 192.168.3.255;*
+*option routers 192.168.3.254;*
+*option domain-name-servers 192.168.3.1;*
+*option subnet-mask 255.255.255.0;*
 
-*subnet 192.168.30.0 netmask 255.255.255.0 {
-  range 192.168.30.2 192.168.30.10;
-  vendor-option-space ACS;
-  option ACS.acs_URL "http://192.168.30.1:7547";
-  option ACS.acs_PROVCODE "FixedIt";
-}
+*subnet 192.168.30.0 netmask 255.255.255.0 {*
+*  range 192.168.30.2 192.168.30.10;*
+*  vendor-option-space ACS;*
+*  option ACS.acs_URL "http://192.168.30.1:7547";*
+*  option ACS.acs_PROVCODE "FixedIt";*
+*}*
 
 Once the above has been input into the dhcp.conf file, CTRL + X to exit and save.  Press Y when prompted to save the file and Enter to reuse file name
 
@@ -170,11 +170,11 @@ Once the above has been input into the dhcp.conf file, CTRL + X to exit and save
 
 9.  Start isc-dhcp-server via terminal (Ref 5)
 
-*sudo /etc/init.d/isc-dhcp-server start
+*sudo /etc/init.d/isc-dhcp-server start*
 
  Check isc-dhcp-server using the following command
 
-*sudo /etc/init.d/isc-dhcp-server status
+*sudo /etc/init.d/isc-dhcp-server status*
 
 
 To exit back to cursor and command prompt use CTRL + C.
@@ -183,35 +183,35 @@ If isc-dhcp-server is running, the status check will have some words stating it 
 
 10. Start mongodb via terminal
 
-*sudo service mongod start
+*sudo service mongod start*
 
 Check mongodb status via the following command
 
-*sudo service mongod status
+*sudo service mongod status*
 
 Again, the message will flash up stating mongodb is active and running (in green).  CTRL + C  to get back to command prompt
  
 
 11. Start GenieACS via terminal
 
-*cd ~/genieacs
-*screen -S cwmp -dm ./dist/bin/genieacs-cwmp
-*screen -S fs -dm ./dist/bin/genieacs-fs
-*screen -S nbi -dm ./dist/bin/genieacs-nbi
-*screen -S ui -dm ./dist/bin/genieacs-ui --ui-jwt-secret secret
+*cd ~/genieacs*
+*screen -S cwmp -dm ./dist/bin/genieacs-cwmp*
+*screen -S fs -dm ./dist/bin/genieacs-fs*
+*screen -S nbi -dm ./dist/bin/genieacs-nbi*
+*screen -S ui -dm ./dist/bin/genieacs-ui --ui-jwt-secret secret*
 
  
 Note: The ports that GenieACS listens are cwmp-7547, nbi – 7557, fs – 7567 (send files) and ui -3000.  To look at the status, might have to do “screen –dr cwmp” or others.
 
 If during the next step of getting access to GenieACS via the browser, there is a blank screen, use the following commands to detach the screens and note any error or other messages which flash up – if GenieACS failed to start up, there will be a message stating that there is no screen to detach.  Again CTRL + C to exit to cursor and command prompt
 
-*screen -dr cwmp
+*screen -dr cwmp*
 CTRL + C
-*screen -dr fs
+*screen -dr fs*
 CTRL + C
-*screen -dr nbi
+*screen -dr nbi*
 CTRL + C
-*screen -dr ui
+*screen -dr ui*
 CTRL + C
 
 12. Using an internet browser on the Ubuntu PC, logon to the GUI of GenieACS – http://localhost:3000. 
@@ -229,25 +229,25 @@ A device ID of XXXX-Technicolor%20DJA0230TLS-YYYY will have uuencoded ID of XXXX
 
 The system.config file should have seven lines.  Be careful that this file is actually created in Ubuntu.  Windows puts all sorts of carriage returns and line breaks which messes the file up
 
-*set system.config.export_plaintext='1'
-*set system.config.export_unsigned='1'
-*set system.config.import_plaintext='1'
-*set system.config.import_unsigned='1'
-*set dropbear.lan.RootPasswordAuth='on'
-*set dropbear.lan.enable='1'
-*set dropbear.lan.PasswordAuth='on'
+*set system.config.export_plaintext='1'*
+*set system.config.export_unsigned='1'*
+*set system.config.import_plaintext='1'*
+*set system.config.import_unsigned='1'*
+*set dropbear.lan.RootPasswordAuth='on'*
+*set dropbear.lan.enable='1'*
+*set dropbear.lan.PasswordAuth='on'*
 
 The previous procedure requires two push action to gain root access.  I have been advised this is because the configuration syntax and structure may be different for other devices.  On one modem is actually wipes the entire config block when you patch it (so system.config there is completely reset).
 
 Important note:  I have always used the two step push procedure to gain root access, but have been advised that the above should be enough for the DJA0230.
 
 To load the file on the GenieACS GUI.
-a.       Go to the "Admin" tab.
-b.      Go to "Files" subtab (on left);
-c.       Click "New";
-d.      Select Type -> 3 Vendor Configuration File;
-e.       File -> Browse (select our config file that has just been created with the seven lines);
-f.        Save.
+a. Go to the "Admin" tab.
+b. Go to "Files" subtab (on left);
+c. Click "New";
+d. Select Type -> 3 Vendor Configuration File;
+e. File -> Browse (select our config file that has just been created with the seven lines);
+f.  Save.
 
 14. Perform a 'kick fix' to the device via terminal using the curl command and uuencode of device ID noted above
 
@@ -311,9 +311,9 @@ function exportConfig() {
 
 7.  The config.bin should then be edited and the relevant dropbear lines changed.  Again, care should be taken that the config.bin file is NOT edited in Windows to prevent erroneous line breaks and carriage returns
 
-*dropbear.lan.RootPasswordAuth='on'
-*dropbear.lan.enable='1'
-*dropbear.lan.PasswordAuth='on'
+*dropbear.lan.RootPasswordAuth='on'*
+*dropbear.lan.enable='1'*
+*dropbear.lan.PasswordAuth='on'*
 
 8.  This edited config.bin file should then be loaded into GenieACS GUI similar to step 13 above.  Again a static IP address of 192.168.30.1 will need to be set on the Ubuntu machine (if using the same machine) prior to firing up GenieACS
 
