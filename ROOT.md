@@ -271,7 +271,7 @@ curl -i 'http://localhost:7557/devices/XXXX-Technicolor%2520DJA0230TLS-YYYY/task
 15. On the GenieACS GUI, device subtab and device selected, summon the device by clicking on the “Summon” hyperlink, just below the device ID.  A message will flash up informing about whether this has been successful.  If unsuccessful, perform the “kick fix” gain and repeat the summons.    The “kick fix” may have to be repeated as many as five times before summon is successful
 
  
-16. Push the system.config file loaded in step 12 to the device.  If successful, the DJA0230 device will reboot and you should have root access at port 22 after the device finishes booting up
+16. Push the system.config file loaded in step 13 to the device.  If successful, the DJA0230 device will reboot and you should have root access at port 22 after the device finishes booting up
 
 The bottom of the GenieACS GUI device screen will have the option to allow a “Push file”.  When the button is clicked, a drop down dialog box appears allowing the selection of the file previously loaded in step 13
 
