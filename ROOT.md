@@ -266,7 +266,7 @@ curl -i 'http://localhost:7557/devices/UUENCODEDDEVICEID/tasks?timeout=30000' -X
 
 So for the uuencoded device ID of XXXX-Technicolor%2520DJA0230TLS-YYYY, the curl command will be
 
-curl -i 'http://localhost:7557/devices/ XXXX-Technicolor%2520DJA0230TLS-YYYY /tasks?timeout=30000' -X POST --data '{"name":"setParameterValues", "parameterValues":[["Device.ManagementServer.X_000E50_ConnectionRequestAllowedIPs", "192.168.0.0/24,192.168.1.0/24,192.168.2.0/24,192.168.3.0/24,192.168.4.0/24,192.168.30.0/24,10.0.0.0/24,10.1.1.0/24"]]}'
+curl -i 'http://localhost:7557/devices/XXXX-Technicolor%2520DJA0230TLS-YYYY /tasks?timeout=30000' -X POST --data '{"name":"setParameterValues", "parameterValues":[["Device.ManagementServer.X_000E50_ConnectionRequestAllowedIPs", "192.168.0.0/24,192.168.1.0/24,192.168.2.0/24,192.168.3.0/24,192.168.4.0/24,192.168.30.0/24,10.0.0.0/24,10.1.1.0/24"]]}'
 
 15. On the GenieACS GUI, device subtab and device selected, summon the device by clicking on the “Summon” hyperlink, just below the device ID.  A message will flash up informing about whether this has been successful.  If unsuccessful, perform the “kick fix” gain and repeat the summons.    The “kick fix” may have to be repeated as many as five times before summon is successful
 
