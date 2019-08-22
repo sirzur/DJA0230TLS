@@ -16,51 +16,51 @@ Whirlpool user Swixel who provided assistance and valueble insights
 
  
 
-1.       Install Ubuntu 18.04.2 LTS and boot into operating system
+1.  Install Ubuntu 18.04.2 LTS and boot into operating system
 
-2.       Install the prerequisites packages redis-server, screen, curl, git and build-essential via terminal
+2.  Install the prerequisites packages redis-server, screen, curl, git and build-essential via terminal
 
-3.       Install nodejs via terminal
+3.  Install nodejs via terminal
 
-4.       Instal mongodb via terminal
+4.  Instal mongodb via terminal
 
-5.       Install GenieACS via terminal
+5.  Install GenieACS via terminal
 
-6.       Install isc-dhcp-server via terminal and edit configuration file to allow for GenieACS
+6.  Install isc-dhcp-server via terminal and edit configuration file to allow for GenieACS
 
-7.       Configure the Ubuntu PC to have static IP4 address of 192.168.30.1
+7.  Configure the Ubuntu PC to have static IP4 address of 192.168.30.1
 
-8.       Connect ethernet port of Ubuntu PC to WAN port of DJA0230
+8.  Connect ethernet port of Ubuntu PC to WAN port of DJA0230
 
-9.       Start isc-dhcp-server via terminal
+9.  Start isc-dhcp-server via terminal
 
-10.   Start mongodb via terminal
+10. Start mongodb via terminal
 
-11.   Start GenieACS via terminal
+11. Start GenieACS via terminal
 
-12.   Using an internet browser on the Ubuntu PC, logon to the GUI of GenieACS (http://localhost:3000) and confirm that DJA0230 is online.  Take note of device ID at the top with large font
+12. Using an internet browser on the Ubuntu PC, logon to the GUI of GenieACS (http://localhost:3000) and confirm that DJA0230 is online.  Take note of device ID at the top with large font
 
-13.   Load a system.config file with instruction set to root and set import and export files as flat files into GenieACS.
+13. Load a system.config file with instruction set to root and set import and export files as flat files into GenieACS.
 
-14.   Perform a ‘kick fix’ to the device via terminal using the curl command and uuencode of device ID noted above
+14. Perform a ‘kick fix’ to the device via terminal using the curl command and uuencode of device ID noted above
 
-15.   At the device screen of GenieACS, summon the device.  A message will flash up to inform about whether this is successful
+15. At the device screen of GenieACS, summon the device.  A message will flash up to inform about whether this is successful
 
-16.   If summon is unsuccessful, repeat the ‘kick fix’ again.  This may have to be repeated again.
+16. If summon is unsuccessful, repeat the ‘kick fix’ again.  This may have to be repeated again.
 
-17.   Push the system.config file loaded in step 12 to the device.  If successful, the DJA0230 device will reboot and you should have root access at port 22 after the device finishes booting up
+17. Push the system.config file loaded in step 12 to the device.  If successful, the DJA0230 device will reboot and you should have root access at port 22 after the device finishes booting up
 
-18.   If using the same Ubuntu PC, reverse the static IP address, unplug Ethernet cable from WAN port and plug into one of the four LAN ports.  Confirm root access
+18. If using the same Ubuntu PC, reverse the static IP address, unplug Ethernet cable from WAN port and plug into one of the four LAN ports.  Confirm root access
 
  
 
 #### Detailed Notes
 
-1.      The requirement for Ubuntu 18.04.2 LTS is not compulsory, nor is a new install.  I have done this successfully using a new install of Ubuntu 18.04.2 LTS.  That is not to say that the process will not be successful with other Linux packages.  I suspect that the main requirement is that GenieACS functions properly on whichever flavour of Linux used
+1.  The requirement for Ubuntu 18.04.2 LTS is not compulsory, nor is a new install.  I have done this successfully using a new install of Ubuntu 18.04.2 LTS.  That is not to say that the process will not be successful with other Linux packages.  I suspect that the main requirement is that GenieACS functions properly on whichever flavour of Linux used
 
 It is also possible for Ubuntu 18.04.2 LTS to be installed on VM, and the process will have to be adjusted accordingly
 
-2.      Open up a terminal and install the pre-requisite packages
+2.  Open up a terminal and install the pre-requisite packages
 
  
 
@@ -70,7 +70,7 @@ It is also possible for Ubuntu 18.04.2 LTS to be installed on VM, and the proces
 
  
 
-3.      From terminal install nodejs(Ref 1).  The version confirmed working is 10 and the command reflects the version
+3.  From terminal install nodejs(Ref 1).  The version confirmed working is 10 and the command reflects the version
 
  
 
@@ -82,7 +82,7 @@ It is also possible for Ubuntu 18.04.2 LTS to be installed on VM, and the proces
 
  
 
-4.       From terminal install mongodb (Ref 2)
+4.   From terminal install mongodb (Ref 2)
 
  
 
@@ -98,7 +98,7 @@ It is also possible for Ubuntu 18.04.2 LTS to be installed on VM, and the proces
 
  
 
-5.  From terminal install GenieACS (Ref 3)
+5. From terminal install GenieACS (Ref 3)
 
  
 
@@ -120,7 +120,7 @@ If the latest commit of GenieACS does not work, the commit of August 4 2019 (sup
 
  
 
-6.       From terminal install isc-dhcp-server and configure (Ref 5, 6)
+6.  From terminal install isc-dhcp-server and configure (Ref 5, 6)
 
  
 
@@ -160,15 +160,15 @@ In the editor you want to input this:
 
 Once the above has been input into the dhcp.conf file, CTRL + X to exit and save.  Press Y when prompted to save the file and Enter to reuse file name
 
-7.      The Ubuntu PC now needs to have its IP4 address fixed at 192.168.30.1, which GenieACS looks for.  In Ubuntu, the settings are the network icon at the top right of the screen4
+7.  The Ubuntu PC now needs to have its IP4 address fixed at 192.168.30.1, which GenieACS looks for.  In Ubuntu, the settings are the network icon at the top right of the screen4
 
  
 
-8.       Connect ethernet port of Ubuntu PC to WAN port of DJA0230
+8.  Connect ethernet port of Ubuntu PC to WAN port of DJA0230
 
  
 
-9.      Start isc-dhcp-server via terminal (Ref 5)
+9.  Start isc-dhcp-server via terminal (Ref 5)
 
 *sudo /etc/init.d/isc-dhcp-server start
 
@@ -181,7 +181,7 @@ To exit back to cursor and command prompt use CTRL + C.
 
 If isc-dhcp-server is running, the status check will have some words stating it is active.  In addition, the DJA0230 device’s LED for “ONLINE” turns green.
 
-10.   Start mongodb via terminal
+10. Start mongodb via terminal
 
 *sudo service mongod start
 
@@ -192,7 +192,7 @@ Check mongodb status via the following command
 Again, the message will flash up stating mongodb is active and running (in green).  CTRL + C  to get back to command prompt
  
 
-11.   Start GenieACS via terminal
+11. Start GenieACS via terminal
 
 *cd ~/genieacs
 *screen -S cwmp -dm ./dist/bin/genieacs-cwmp
@@ -214,7 +214,7 @@ CTRL + C
 *screen -dr ui
 CTRL + C
 
-12.   Using an internet browser on the Ubuntu PC, logon to the GUI of GenieACS – http://localhost:3000. 
+12. Using an internet browser on the Ubuntu PC, logon to the GUI of GenieACS – http://localhost:3000. 
 
 If things have gone well, a screen will be presented with tick boxes for a few items to be set up.  Leave that alone, or keep all boxes ticked.  Press “ABRACADABRA!” at the bottom of the screen and the wizard should then set things up, including the admin user and password, both of which are admin.
 
@@ -225,7 +225,7 @@ The device ID will need to be URL Encoded it. If you don't know what that means,
 A device ID of XXXX-Technicolor%20DJA0230TLS-YYYY will have uuencoded ID of XXXX-Technicolor%2520DJA0230TLS-YYYY
 
  
-13.  Load a system.config file with instruction set to root and set import and export files as flat files into GenieACS.
+13. Load a system.config file with instruction set to root and set import and export files as flat files into GenieACS.
 
 The system.config file should have seven lines.  Be careful that this file is actually created in Ubuntu.  Windows puts all sorts of carriage returns and line breaks which messes the file up
 
@@ -249,7 +249,7 @@ d.      Select Type -> 3 Vendor Configuration File;
 e.       File -> Browse (select our config file that has just been created with the seven lines);
 f.        Save.
 
-14.  Perform a 'kick fix' to the device via terminal using the curl command and uuencode of device ID noted above
+14. Perform a 'kick fix' to the device via terminal using the curl command and uuencode of device ID noted above
 
 The curl command to use in the terminal is as follows
 
@@ -259,10 +259,10 @@ So for the uuencoded device ID of XXXX-Technicolor%2520DJA0230TLS-YYYY, the curl
 
 curl -i 'http://localhost:7557/devices/ XXXX-Technicolor%2520DJA0230TLS-YYYY /tasks?timeout=30000' -X POST --data '{"name":"setParameterValues", "parameterValues":[["Device.ManagementServer.X_000E50_ConnectionRequestAllowedIPs", "192.168.0.0/24,192.168.1.0/24,192.168.2.0/24,192.168.3.0/24,192.168.4.0/24,192.168.30.0/24,10.0.0.0/24,10.1.1.0/24"]]}'
 
-15.  On the GenieACS GUI, device subtab and device selected, summon the device by clicking on the “Summon” hyperlink, just below the device ID.  A message will flash up informing about whether this has been successful.  If unsuccessful, perform the “kick fix” gain and repeat the summons.    The “kick fix” may have to be repeated as many as five times before summon is successful
+15. On the GenieACS GUI, device subtab and device selected, summon the device by clicking on the “Summon” hyperlink, just below the device ID.  A message will flash up informing about whether this has been successful.  If unsuccessful, perform the “kick fix” gain and repeat the summons.    The “kick fix” may have to be repeated as many as five times before summon is successful
 
  
-16.  Push the system.config file loaded in step 12 to the device.  If successful, the DJA0230 device will reboot and you should have root access at port 22 after the device finishes booting up
+16. Push the system.config file loaded in step 12 to the device.  If successful, the DJA0230 device will reboot and you should have root access at port 22 after the device finishes booting up
 
 The bottom of the GenieACS GUI device screen will have the option to allow a “Push file”.  When the button is clicked, a drop down dialog box appears allowing the selection of the file previously loaded in step 13
 
@@ -270,10 +270,10 @@ Select the file, click on “queue” followed by “commit”.  The only indica
 
 The faults subsection would have a couple of faults related to the “kick fix”.  Each time the curl command is run, a fault appears, which does not seem to interfere with the rooting process
 
-17.  Connect to the LAN port of the device and confirm root access, via putty, Winscp or some other means.  If using the same Ubuntu PC, the static IP4 address will have to be changed back to a dynamic address.
+17. Connect to the LAN port of the device and confirm root access, via putty, Winscp or some other means.  If using the same Ubuntu PC, the static IP4 address will have to be changed back to a dynamic address.
 
  
-18.  Post root, the whirlpool knowledge base should provide a springboard for other commands and steps
+18. Post root, the whirlpool knowledge base should provide a springboard for other commands and steps
 
  
 
@@ -283,11 +283,11 @@ The original process involves two push actions.  In the first push, the 4 lines 
 
 Then the process continues
 
-1.      Connect to the LAN port of the device and if using the same Ubuntu machine, change back to dynamic IP4 address
+1.  Connect to the LAN port of the device and if using the same Ubuntu machine, change back to dynamic IP4 address
 
-2.      Using a browser, login to the device GUI
+2.  Using a browser, login to the device GUI
 
-3.      Run the following commands in the browser console (console brought up by CTRL+SHIFT+I)
+3.  Run the following commands in the browser console (console brought up by CTRL+SHIFT+I)
 
 /* Downloader */
 
@@ -303,23 +303,23 @@ function exportConfig() {
 
  
 
-4.      Press enter after entering the commands and a line break should appear with the cursor after the symbol >>
+4.  Press enter after entering the commands and a line break should appear with the cursor after the symbol >>
 
-5.      Type exportConfig() and press enter.
+5.  Type exportConfig() and press enter.
 
-6.      A pop up box will enquire what is required of the config.bin file. Download and save  config.bin.
+6.  A pop up box will enquire what is required of the config.bin file. Download and save  config.bin.
 
-7.      The config.bin should then be edited and the relevant dropbear lines changed.  Again, care should be taken that the config.bin file is NOT edited in Windows to prevent erroneous line breaks and carriage returns
+7.  The config.bin should then be edited and the relevant dropbear lines changed.  Again, care should be taken that the config.bin file is NOT edited in Windows to prevent erroneous line breaks and carriage returns
 
 *dropbear.lan.RootPasswordAuth='on'
 *dropbear.lan.enable='1'
 *dropbear.lan.PasswordAuth='on'
 
-8.      This edited config.bin file should then be loaded into GenieACS GUI similar to step 13 above.  Again a static IP address of 192.168.30.1 will need to be set on the Ubuntu machine (if using the same machine) prior to firing up GenieACS
+8.  This edited config.bin file should then be loaded into GenieACS GUI similar to step 13 above.  Again a static IP address of 192.168.30.1 will need to be set on the Ubuntu machine (if using the same machine) prior to firing up GenieACS
 
-9.      The “kick fix” curl command should then be run, the device summoned and the file pushed to the device.  Push success is again indicated when the device reboots
+9.  The “kick fix” curl command should then be run, the device summoned and the file pushed to the device.  Push success is again indicated when the device reboots
 
-10.  Confirmation of root is via LAN access and using putty, Winscp or other.  Note the need for dynamic IP4 address
+10. Confirmation of root is via LAN access and using putty, Winscp or other.  Note the need for dynamic IP4 address
 
  
 
@@ -335,14 +335,14 @@ function exportConfig() {
 
 References
 
-1.       https://tecadmin.net/install-latest-nodejs-npm-on-ubuntu/
+1. https://tecadmin.net/install-latest-nodejs-npm-on-ubuntu/
 
-2.       https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/
+2. https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/
 
-3.       https://github.com/genieacs/genieacs
+3. https://github.com/genieacs/genieacs
 
-4.       https://tecadmin.net/change-ip-address-on-ubuntu-18-04-desktop/
+4. https://tecadmin.net/change-ip-address-on-ubuntu-18-04-desktop/
 
-5.       https://help.ubuntu.com/community/isc-dhcp-server
+5. https://help.ubuntu.com/community/isc-dhcp-server
 
-6.       https://blog.localh0rst.de/isc-dhcp-add-cwmp-acs-server-tr069/ 
+6. https://blog.localh0rst.de/isc-dhcp-add-cwmp-acs-server-tr069/ 
