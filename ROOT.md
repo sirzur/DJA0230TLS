@@ -141,21 +141,31 @@ The first line clears the dhcpd.conf file, while the second command opens the dh
 In the editor you want to input this:
 
 *option space ACS;*
+
 *option ACS.acs_URL code 1 = text;*
+
 *option ACS.acs_PROVCODE code 2 = text;*
 
+
+
 *default-lease-time 600;*
+
 *max-lease-time 7200;*
+
 *option broadcast-address 192.168.3.255;*
+
 *option routers 192.168.3.254;*
+
 *option domain-name-servers 192.168.3.1;*
+
 *option subnet-mask 255.255.255.0;*
 
+
 *subnet 192.168.30.0 netmask 255.255.255.0 {*
-*  range 192.168.30.2 192.168.30.10;*
-*  vendor-option-space ACS;*
-*  option ACS.acs_URL "http://192.168.30.1:7547";*
-*  option ACS.acs_PROVCODE "FixedIt";*
+ *range 192.168.30.2 192.168.30.10;*
+ *vendor-option-space ACS;*
+ *option ACS.acs_URL "http://192.168.30.1:7547";*
+ *option ACS.acs_PROVCODE "FixedIt";*
 *}*
 
 Once the above has been input into the dhcp.conf file, CTRL + X to exit and save.  Press Y when prompted to save the file and Enter to reuse file name
@@ -195,9 +205,13 @@ Again, the message will flash up stating mongodb is active and running (in green
 11. Start GenieACS via terminal
 
 *cd ~/genieacs*
+
 *screen -S cwmp -dm ./dist/bin/genieacs-cwmp*
+
 *screen -S fs -dm ./dist/bin/genieacs-fs*
+
 *screen -S nbi -dm ./dist/bin/genieacs-nbi*
+
 *screen -S ui -dm ./dist/bin/genieacs-ui --ui-jwt-secret secret*
 
  
@@ -206,12 +220,19 @@ Note: The ports that GenieACS listens are cwmp-7547, nbi – 7557, fs – 7567 (
 If during the next step of getting access to GenieACS via the browser, there is a blank screen, use the following commands to detach the screens and note any error or other messages which flash up – if GenieACS failed to start up, there will be a message stating that there is no screen to detach.  Again CTRL + C to exit to cursor and command prompt
 
 *screen -dr cwmp*
+
 CTRL + C
+
 *screen -dr fs*
+
 CTRL + C
+
 *screen -dr nbi*
+
 CTRL + C
+
 *screen -dr ui*
+
 CTRL + C
 
 12. Using an internet browser on the Ubuntu PC, logon to the GUI of GenieACS – http://localhost:3000. 
@@ -312,7 +333,9 @@ function exportConfig() {
 7.  The config.bin should then be edited and the relevant dropbear lines changed.  Again, care should be taken that the config.bin file is NOT edited in Windows to prevent erroneous line breaks and carriage returns
 
 *dropbear.lan.RootPasswordAuth='on'*
+
 *dropbear.lan.enable='1'*
+
 *dropbear.lan.PasswordAuth='on'*
 
 8.  This edited config.bin file should then be loaded into GenieACS GUI similar to step 13 above.  Again a static IP address of 192.168.30.1 will need to be set on the Ubuntu machine (if using the same machine) prior to firing up GenieACS
