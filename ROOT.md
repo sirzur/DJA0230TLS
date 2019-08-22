@@ -268,12 +268,18 @@ The previous procedure requires two push action to gain root access.  I have bee
 
 Important note:  I have always used the two step push procedure to gain root access, but have been advised that the above should be enough for the DJA0230.
 
-To load the file on the GenieACS GUI.
+To load the file on the GenieACS GUI:
+
 a. Go to the "Admin" tab.
+
 b. Go to "Files" subtab (on left);
+
 c. Click "New";
+
 d. Select Type -> 3 Vendor Configuration File;
+
 e. File -> Browse (select our config file that has just been created with the seven lines);
+
 f.  Save.
 
 14. Perform a 'kick fix' to the device via terminal using the curl command and uuencode of device ID noted above
