@@ -161,16 +161,16 @@ In the editor you want to input this:
 *option subnet-mask 255.255.255.0;*
 
 
-*subnet 192.168.30.0 netmask 255.255.255.0 {*
- *range 192.168.30.2 192.168.30.10;*
- *vendor-option-space ACS;*
- *option ACS.acs_URL "http://192.168.30.1:7547";*
- *option ACS.acs_PROVCODE "FixedIt";*
-*}*
+*subnet 192.168.30.0 netmask 255.255.255.0 {
+  range 192.168.30.2 192.168.30.10;
+  vendor-option-space ACS;
+  option ACS.acs_URL "http://192.168.30.1:7547";
+  option ACS.acs_PROVCODE "FixedIt";
+}*
 
 Once the above has been input into the dhcp.conf file, CTRL + X to exit and save.  Press Y when prompted to save the file and Enter to reuse file name
 
-7.  The Ubuntu PC now needs to have its IP4 address fixed at 192.168.30.1, which GenieACS looks for.  In Ubuntu, the settings are the network icon at the top right of the screen4
+7.  The Ubuntu PC now needs to have its IP4 address fixed at 192.168.30.1, which GenieACS looks for.  In Ubuntu, the settings are the network icon at the top right of the screen (Ref 4)
 
  
 
@@ -251,11 +251,17 @@ A device ID of XXXX-Technicolor%20DJA0230TLS-YYYY will have uuencoded ID of XXXX
 The system.config file should have seven lines.  Be careful that this file is actually created in Ubuntu.  Windows puts all sorts of carriage returns and line breaks which messes the file up
 
 *set system.config.export_plaintext='1'*
+
 *set system.config.export_unsigned='1'*
+
 *set system.config.import_plaintext='1'*
+
 *set system.config.import_unsigned='1'*
+
 *set dropbear.lan.RootPasswordAuth='on'*
+
 *set dropbear.lan.enable='1'*
+
 *set dropbear.lan.PasswordAuth='on'*
 
 The previous procedure requires two push action to gain root access.  I have been advised this is because the configuration syntax and structure may be different for other devices.  On one modem is actually wipes the entire config block when you patch it (so system.config there is completely reset).
