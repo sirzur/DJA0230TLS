@@ -332,6 +332,7 @@ function exportConfig() {
             { name : "action", value : "export_config" },
             { name : "CSRFtoken", value : $("meta[name=CSRFtoken]").attr("content") }),
     });
+    
 }
 
  
