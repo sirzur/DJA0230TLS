@@ -242,7 +242,7 @@ set dropbear.lan.PasswordAuth='on'
 
 The previous procedure requires two push action to gain root access.  I have been advised this is because the configuration syntax and structure may be different for other devices.  On one modem is actually wipes the entire config block when you patch it (so system.config there is completely reset).
 
-Important note:  I have always used the two step push procedure to gain root access, but have been advised that the above should be enough for the DJA0230.
+Important note:  I have always used the two step push procedure to gain root access, but have been advised that the above should be enough for the DJA0230.  IF IN DOUBT, USE THE TWO STEP PUSH PROCEDURE ie.  JUST USE THE FIRST FOUR LINES IN system.config file
 
 To load the file on the GenieACS GUI:
 
