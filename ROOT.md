@@ -258,7 +258,7 @@ curl -i 'http://localhost:7557/devices/XXXX-Technicolor%2520DJA0230TLS-YYYY/task
 
 At the bottom of the GenieACS GUI device screen click the `Push file` button and a drop down dialog box will appear allowing the selection of the file previously loaded in step 13.
 
-Select the file, click on `queue` followed by `commit`. The only indication of the success of this action is when the device reboots. In addition, keep an eye on the faults subsection. Of the device on GenieACS GUI. If no faults appear around the time when the file was pushed, then the action would be successful.
+Select the file, click on `queue` followed by `commit`. The only indication of the success of this action is when the device reboots. In addition, keep an eye on the faults subsection of the device on GenieACS GUI. If no faults appear around the time when the file was pushed, then the action would be successful.
 
 The faults subsection would have a couple of faults related to the *kick fix*. Each time the curl command is run, a fault appears, which does not seem to interfere with the rooting process.
 
