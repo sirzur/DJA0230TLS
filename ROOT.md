@@ -143,7 +143,7 @@ sudo /etc/init.d/isc-dhcp-server6 stop
 
 **7 -** The Ubuntu PC now needs to have its IP4 address fixed at 192.168.30.1, which GenieACS looks for. In Ubuntu, the settings are the network icon at the top right of the screen (Ref 4)
 
-**8 -** Connect ethernet port of Ubuntu PC to WAN port of DJA0230
+**8 -** Connect ethernet port of Ubuntu PC to WAN port of DJA0230.  It may be best to remove the SIM card from the bottom of the device during the whole rooting process
 
 **9 -** Start isc-dhcp-server via terminal (Ref 5)
 
