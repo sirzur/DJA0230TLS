@@ -16,6 +16,16 @@ The overall steps to root the DJA0230 device are listed below followed by detail
 Thanks to Whirlpool users, particularly Swixel who provided suggestions and insights along the way.
  
 
+## Overall Process
+
+!!!Note
+   There is no requirement for a factory reset, nor a firmware upgrade or downgrade for this process to work
+   
+The overall process involves two main steps:
+1. Setting up an ACS (TR-069) server
+2. Pushing a config update through ACS that will disable signature, allow plain text updates and enable dropbear
+
+
 ## Overall Steps
 
 1. Install Ubuntu 18.04.2 LTS and boot into operating system
@@ -64,8 +74,8 @@ sudo apt-get install -y nodejs
 ```bash
 # Mongodb
 
-wget -qO - https://www.mongodb.org/static/pgp/server-4.0.asc | sudo apt-key add –
-echo "deb [ arch=amd64 ] https://repo.mongodb.org/apt/ubuntu/bionic/mongodb-org/4.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.0.list
+wget -qO - https://www.mongodb.org/static/pgp/server-4.2.asc | sudo apt-key add -
+echo "deb [ arch=amd64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.2 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.2.list
 sudo apt-get update
 sudo apt-get install -y mongodb-org
 ```
@@ -122,6 +132,13 @@ subnet 192.168.30.0 netmask 255.255.255.0 {
 ```
 
 Once the above has been input into the dhcp.conf file, `CTRL` + `X` to exit and save. Press `Y` when prompted to save the file and `Enter` to reuse file name
+
+By default, the isc-dhcp-server should not start, but nevertheless run the following commands to stop the server just in case
+
+```bash
+sudo /etc/init.d/isc-dhcp-server stop
+sudo /etc/init.d/isc-dhcp-server6 stop
+```
 
 **7 -** The Ubuntu PC now needs to have its IP4 address fixed at 192.168.30.1, which GenieACS looks for. In Ubuntu, the settings are the network icon at the top right of the screen (Ref 4)
 
@@ -207,10 +224,12 @@ set dropbear.lan.enable='1'
 set dropbear.lan.PasswordAuth='on'
 ```
 
-The previous procedure requires two push action to gain root access. I have been advised this is because the configuration syntax and structure may be different for other devices. On one modem it actually wipes the entire config block when you patch it (so system.config there is completely reset).
 
 !!! Note
     I have always used the two step push procedure to gain root access, but have been advised that the above should be enough for the DJA0230. IF IN DOUBT, USE THE TWO STEP PUSH PROCEDURE ie. JUST USE THE FIRST FOUR LINES IN system.config file.
+
+The original procedure requires two push action to gain root access. I have been advised this is because the configuration syntax and structure may be different for other devices. On one modem it actually wipes the entire config block when you patch it (so system.config there is completely reset).
+
 
 To load the file on the GenieACS GUI:
 
@@ -241,7 +260,7 @@ curl -i 'http://localhost:7557/devices/XXXX-Technicolor%2520DJA0230TLS-YYYY/task
 
     The faults subsection would have a couple of faults related to the *kick fix*. Each time the curl command is run, a fault appears, which does not seem to interfere with the rooting process.
 
-**17 -** Connect to the LAN port of the device and confirm root access, via putty, Winscp or some other means. If using the same Ubuntu PC, the static IP4 address will have to be changed back to a dynamic address.
+**17 -** Connect to the LAN port of the device and confirm root access, via putty, Winscp or some other means. Username and password is both root.  If using the same Ubuntu PC, the static IP4 address will have to be changed back to a dynamic address.
 
 **18 -** Post root, the whirlpool knowledge base should provide a springboard for other commands and steps
 
