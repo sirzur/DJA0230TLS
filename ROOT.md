@@ -1,5 +1,6 @@
-!!! caution "DISCLAIMER"
-    The documentation is provided "as is" and the author disclaims all warranties with regard to this documentation including all implied warranties of merchantability and fitness. In no event shall the author be liable for any special, direct, indirect, or consequential damages or any damages whatsoever resulting from loss of use, data or profits, whether in an action of contract, negligence or other tortious action, arising out of or in connection with the use or performance of this documentation.
+> "DISCLAIMER"
+    
+> The documentation is provided "as is" and the author disclaims all warranties with regard to this documentation including all implied warranties of merchantability and fitness. In no event shall the author be liable for any special, direct, indirect, or consequential damages or any damages whatsoever resulting from loss of use, data or profits, whether in an action of contract, negligence or other tortious action, arising out of or in connection with the use or performance of this documentation.
 
 In short, do so at your own risk. This is the procedure done on a Technicolor DJA0230TLS Gateway. The process itself *is* safe but it's fiddly.
 
@@ -212,7 +213,8 @@ A device ID of XXXX-Technicolor%20DJA0230TLS-YYYY will have uuencoded ID of XXXX
 
 **13 -** Load a system.config file with instruction set to root and set import and export files as flat files into GenieACS.
 
-    The system.config file should have seven lines. Be careful that this file is actually created in Ubuntu because Windows messes up the line breaks and possibly other characters.
+The system.config file should have seven lines. Be careful that this file is actually created in Ubuntu because Windows messes up the line breaks and possibly other characters.
+
 
 ```ini
 set system.config.export_plaintext='1'
@@ -226,9 +228,9 @@ set dropbear.lan.PasswordAuth='on'
 
 
 !!! Note
-    I have always used the two step push procedure to gain root access, but have been advised that the above should be enough for the DJA0230. IF IN DOUBT, USE THE TWO STEP PUSH PROCEDURE ie. JUST USE THE FIRST FOUR LINES IN system.config file.
+    I have always used the two step push procedure to gain root access, but have been advised that the above should be enough for the DJA0230. IF YOU ARE USING THIS GUIDE TO ROOT OTHER TECHNICOLOR DEVICE AND HAVE DOUBTS ABOUT THE SYNTAX OF THE CONFIGURATION FILE, USE THE TWO STEP PUSH PROCEDURE ie. JUST USE THE FIRST FOUR LINES IN system.config FILE.
 
-The original procedure requires two push action to gain root access. I have been advised this is because the configuration syntax and structure may be different for other devices. On one modem it actually wipes the entire config block when you patch it (so system.config there is completely reset).
+The original procedure requires two push action to gain root access. I have been advised this is because the configuration syntax and structure may be different for other devices. On one modem it may have wiped the entire config block when you patch it (so system.config there is completely reset).
 
 
 To load the file on the GenieACS GUI:
@@ -254,13 +256,13 @@ curl -i 'http://localhost:7557/devices/XXXX-Technicolor%2520DJA0230TLS-YYYY/task
 
 **16 -** Push the system.config file loaded in step 13 to the device. If successful, the DJA0230 device will reboot and you should have root access at port 22 after the device finishes booting up.
 
-    At the bottom of the GenieACS GUI device screen click the `Push file` button and a drop down dialog box will appear allowing the selection of the file previously loaded in step 13.
+At the bottom of the GenieACS GUI device screen click the `Push file` button and a drop down dialog box will appear allowing the selection of the file previously loaded in step 13.
 
-    Select the file, click on `queue` followed by `commit`. The only indication of the success of this action is when the device reboots. In addition, keep an eye on the faults subsection. Of the device on GenieACS GUI. If no faults appear around the time when the file was pushed, then the action would be successful.
+Select the file, click on `queue` followed by `commit`. The only indication of the success of this action is when the device reboots. In addition, keep an eye on the faults subsection. Of the device on GenieACS GUI. If no faults appear around the time when the file was pushed, then the action would be successful.
 
-    The faults subsection would have a couple of faults related to the *kick fix*. Each time the curl command is run, a fault appears, which does not seem to interfere with the rooting process.
+The faults subsection would have a couple of faults related to the *kick fix*. Each time the curl command is run, a fault appears, which does not seem to interfere with the rooting process.
 
-**17 -** Connect to the LAN port of the device and confirm root access, via putty, Winscp or some other means. Username and password is both root.  If using the same Ubuntu PC, the static IP4 address will have to be changed back to a dynamic address.
+**17 -** Connect to the LAN port of the device and confirm root access, via putty, Winscp or some other means. Username and password is both root.  If using the same Ubuntu PC, the static IP4 address will have to be changed back to a dynamic address.  If using the two step process, skip the next step and proceed from step 18a in the section below.
 
 **18 -** Post root, the whirlpool knowledge base should provide a springboard for other commands and steps
 
@@ -271,11 +273,11 @@ The original process involves two push actions. In the first push, the 4 lines (
 
 Then the process continues:
 
-**1 -** Connect to the LAN port of the device and if using the same Ubuntu machine, change back to dynamic IP4 address
+**18a -** Connect to the LAN port of the device and if using the same Ubuntu machine, change back to dynamic IP4 address
 
-**2 -** Using a browser, login to the device GUI
+**19a -** Using a browser, login to the device GUI
 
-**3 -** Run the following commands in the browser console (console brought up by `CTRL`+`SHIFT`+`I`)
+**20a -** Run the following commands in the browser console (console brought up by `CTRL`+`SHIFT`+`I`)
 
 ```bash
 /* Downloader */
@@ -292,13 +294,13 @@ function exportConfig() {
 }
 ```
 
-**4 -** After entering the commands press `Enter` and a line break should appear with the cursor after the symbol `>>`
+**21a -** After entering the commands press `Enter` and a line break should appear with the cursor after the symbol `>>`
 
-**5 -** Type `exportConfig()` and press `Enter`
+**22a -** Type `exportConfig()` and press `Enter`
 
-**6 -** A pop up box will enquire what is required of the config.bin file. Download and save `config.bin`.
+**23a -** A pop up box will enquire what is required of the config.bin file. Download and save `config.bin`.
 
-**7 -** The config.bin should then be edited and the relevant dropbear lines changed. Again, DON'T edit the config.bin file in Windows to prevent erroneous line breaks and carriage returns.
+**24a -** The config.bin should then be edited and the relevant dropbear lines changed. Again, DON'T edit the config.bin file in Windows to prevent erroneous line breaks and carriage returns.
 
 ```bash
 dropbear.lan.RootPasswordAuth='on'
@@ -306,11 +308,11 @@ dropbear.lan.enable='1'
 dropbear.lan.PasswordAuth='on'
 ```
 
-**8 -** This edited config.bin file should then be loaded into GenieACS GUI similar to step 13 above. Again, a static IP address of 192.168.30.1 will need to be set on the Ubuntu machine (if using the same machine) prior to firing up GenieACS.
+**25a -** This edited config.bin file should then be loaded into GenieACS GUI similar to step 13 above. Again, a static IP address of 192.168.30.1 will need to be set on the Ubuntu machine (if using the same machine) prior to firing up GenieACS.
 
-**9 -** Run the curl *kick fix* command, summon the device summoned and push the file to the device. Push success is again indicated when the device reboots.
+**26a -** Run the curl *kick fix* command, summon the device summoned and push the file to the device. Push success is again indicated when the device reboots.  The previous steps 14 to 16 in the section above provides details.
 
-**10 -** Confirmation of root is via LAN access and using putty, Winscp or other. Note the need for dynamic IP4 address.
+**27a -** Confirmation of root is via LAN access and using putty, Winscp or other. Note the need for dynamic IP4 address.
 
 
 ## References
